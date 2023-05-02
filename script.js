@@ -1,56 +1,51 @@
 const bookList = localStorage.getItem('book') ? JSON.parse(localStorage.getItem('book')) : [];
 
-console.log(bookList);
-
 const addBook = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    let book = {
-        id: Date.now(),
-        title: document.getElementById('title').value,
-        author: document.getElementById('author').value,
-    }
-    if (book.id && book.title && book.author) {
-        bookList.push(book);
-    }
-    document.querySelector('form').reset();
+  const book = {
+    id: Date.now(),
+    title: document.getElementById('title').value,
+    author: document.getElementById('author').value,
+  };
+  if (book.id && book.title && book.author) {
+    bookList.push(book);
+  }
+  document.querySelector('form').reset();
 
-    localStorage.setItem('book', JSON.stringify(bookList));
-    document.location.reload();
-}
+  localStorage.setItem('book', JSON.stringify(bookList));
+  document.location.reload();
+};
 
 bookList.forEach((element, e) => {
-    const allBooks = document.querySelector('.all-books');
-    const book = document.createElement('div');
-    book.classList = 'book-style';
+  const allBooks = document.querySelector('.all-books');
+  const book = document.createElement('div');
+  book.classList = 'book-style';
 
-    book.innerHTML = `
+  book.innerHTML = `
     
     <h2 class="title">${bookList[e].title}</h2>
     <p class="author">${bookList[e].author}</p>
     <button class="remove">Remove</button>
     <hr />
     `;
-    allBooks.append(book);
-    
+  allBooks.append(book);
 });
 
-function activateDelete() {
-    let remove = document.querySelectorAll('.remove');
-    remove.forEach((btn, i) => {
-        btn.addEventListener('click', () => { deleteBook(i) })
-               
-    })
+function deleteBook(i) {
+  bookList.splice(i, 1);
+  localStorage.setItem('book', JSON.stringify(bookList));
+  document.location.reload();
 }
 
-//filter function
-function deleteBook(i) {
-    bookList.splice(i, 1);
-    localStorage.setItem('book', JSON.stringify(bookList));
-    document.location();
+function activateDelete() {
+  const remove = document.querySelectorAll('.remove');
+  remove.forEach((btn, i) => {
+    btn.addEventListener('click', () => { deleteBook(i); });
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('submit').addEventListener('click', addBook);
-    activateDelete();
-})
+  document.getElementById('submit').addEventListener('click', addBook);
+  activateDelete();
+});
