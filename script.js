@@ -16,7 +16,7 @@ const addBook = (e) => {
     document.querySelector('form').reset();
 
     localStorage.setItem('book', JSON.stringify(bookList));
-    location.reload();
+    document.location.reload();
 }
 
 bookList.forEach((element, e) => {
@@ -37,7 +37,6 @@ bookList.forEach((element, e) => {
 
 function activateDelete() {
     let remove = document.querySelectorAll('.remove');
-    console.log(remove);
     remove.forEach((btn, i) => {
         btn.addEventListener('click', () => { deleteBook(i) })
                
@@ -45,4 +44,13 @@ function activateDelete() {
 }
 
 //filter function
+function deleteBook(i) {
+    bookList.splice(i, 1);
+    localStorage.setItem('book', JSON.stringify(bookList));
+    document.location();
+}
 
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('submit').addEventListener('click', addBook);
+    activateDelete();
+})
