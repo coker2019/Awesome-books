@@ -1,4 +1,4 @@
-/*eslint-disable max-classes-per-file*/
+/* eslint-disable max-classes-per-file */
 // Book class to represent a book
 class Book {
   constructor(id, title, author) {
